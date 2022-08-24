@@ -3,7 +3,7 @@ const stopBtn = document.querySelector('button[data-stop]');
 
 startBtn.addEventListener('click', colorRandom);
 stopBtn.addEventListener('click', colorRandomStop);
-stopBtn.setAttribute('disabled', true);
+stopBtn.disabled = true;
 
 function getRandomHexColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -15,12 +15,12 @@ function colorRandom() {
     a = setInterval(() => {
       document.body.style.backgroundColor = getRandomHexColor();
     }, 1000);
-    startBtn.setAttribute('disabled', true);
-    stopBtn.removeAttribute('disabled');
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
 }
   
 function colorRandomStop() {
     clearInterval(a);
-    stopBtn.setAttribute('disabled', true);
-    startBtn.removeAttribute('disabled');
+    stopBtn.disabled = true;
+    startBtn.disabled = false;
 }

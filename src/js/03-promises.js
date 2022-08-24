@@ -25,10 +25,8 @@ function createPromise(position, delay) {
 }
 
 function start(delay, step, amount) {
-  let position = 0;
-  for (let i = 0; i < amount; i += 1) {
-    position += 1;
-    createPromise(position, delay)
+  for (let i = 0; i < amount; i += 1) {;
+    createPromise(i, delay)
       .then(resolve => {
         Notiflix.Notify.success(resolve);
       })

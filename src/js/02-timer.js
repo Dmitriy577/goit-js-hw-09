@@ -12,7 +12,7 @@ Notiflix.Notify.init({
 });
 
 const rest = {
-  inputPole: document.querySelector('#datetime-picker'),
+  inputFild: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('button[data-start]'),
   days: document.querySelector('span[data-days]'),
   hours: document.querySelector('span[data-hours]'),
@@ -28,7 +28,7 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  // зброс лічильника і остановка таймера
+
   onOpen() {
     clearInterval(timer);
     rest.days.textContent = '00';
@@ -36,23 +36,23 @@ const options = {
     rest.minutes.textContent = '00';
     rest.seconds.textContent = '00';
   },
-  // достаєм дату
+ 
   onClose(selectedDates) {
     timeData = selectedDates[0].getTime();
-    //  провірка дата і disabled
+  
     if (timeData < new Date()) {
       Notiflix.Notify.failure('Please choose a date in the future');
-      rest.startBtn.setAttribute('disabled', true);
+      rest.startBtn.disabled = true;
       return;
     }
-    rest.startBtn.removeAttribute('disabled');
+    rest.startBtn.disabled = false;
   },
 };
 
-const dataInput = flatpickr(rest.inputPole, options);
+const dataInput = flatpickr(rest.inputFild, options);
 
 rest.startBtn.addEventListener('click', startButton);
-rest.startBtn.setAttribute('disabled', true);
+rest.startBtn.disabled + true;
 
 function startButton() {
   timer = setInterval(() => {
@@ -60,13 +60,14 @@ function startButton() {
 
     if (deltaTime <= 0) {
       clearInterval(timer);
+      alert("Timer stopped");
       return;
     }
     const time = convertMs(deltaTime);
     updateClockInfo(time);
   }, 1000);
 
-  rest.startBtn.setAttribute('disabled', true);
+  rest.startBtn.disabled = true;
 }
 
 function updateClockInfo({ days, hours, minutes, seconds }) {
